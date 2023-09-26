@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_profile/components/profile_buttons.dart';
+import 'package:flutter_profile/components/profile_navigation_bar.dart';
 import 'package:flutter_profile/components/profile_count_info.dart';
 import 'package:flutter_profile/components/profile_drawer.dart';
 import 'package:flutter_profile/components/profile_header.dart';
@@ -17,13 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme(),
-      home: const ProfilePage(),
+      home: ProfilePage(),
     );
   }
 }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,36 +36,70 @@ class ProfilePage extends StatelessWidget {
           return [
             SliverList(
               delegate: SliverChildListDelegate([
-                SizedBox(height: 20),
-                ProfileHeader(),
-                SizedBox(height: 20),
-                ProfileCountInfo(),
-                SizedBox(height: 20),
-                ProfileButtons()
+                const SizedBox(height: 20),
+                const ProfileHeader(),
+                const SizedBox(height: 20),
+                const ProfileCountInfo(),
+                const SizedBox(height: 5),
               ]),
             ),
           ];
         },
-        body: ProfileTab(),
+        body: const ProfileTab(),
       ),
+      bottomNavigationBar: const ProfileNavigationBar()
     );
   }
 
   AppBar _buildProfileAppBar() {
+    int counter = 0;
     return AppBar(
-      leading: const Icon(Icons.arrow_back_ios),
-      title: const Text("Profile"),
+      backgroundColor: Colors.purple,
+      title: const Text("마이페이지"),
+      centerTitle: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.shopping_cart),
+          icon: Stack(
+            children: [
+              const Icon(Icons.notifications),
+              Positioned(
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: const BoxConstraints(
+                    minWidth: 12,
+                    minHeight: 12,
+                  ),
+                  child: Text(
+                    '$counter',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 8,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            ],
+          ),
+          // const Icon(Icons.notification_add),
           tooltip: 'Open shopping cart',
           onPressed: () {
             // handle the press
             print("장바구니 입니다.");
           },
         ),
+        IconButton(
+          icon: const Icon(Icons.settings_outlined),
+          onPressed: () {
+            // handle the press
+          },
+        ),
       ],
-      centerTitle: true,
     );
   }
 }

@@ -5,15 +5,22 @@ class ProfileCountInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        _buildInfo("50", "Posts"),
-        _buildLine(),
-        _buildInfo("10", "Likes"),
-        _buildLine(),
-        _buildInfo("3", "Share"),
-      ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.grey,
+            borderRadius: BorderRadius.circular(10)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildInfo("팔로워", "150"),
+            _buildLine(),
+            _buildInfo("팔로잉", "999"),
+          ],
+        ),
+      ),
     );
   }
 
@@ -22,11 +29,11 @@ class ProfileCountInfo extends StatelessWidget {
       children: [
         Text(
           count,
-          style: const TextStyle(fontSize: 15),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         Text(
           title,
-          style: const TextStyle(fontSize: 15),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -34,8 +41,8 @@ class ProfileCountInfo extends StatelessWidget {
 
   Widget _buildLine() {
     return Container(
-      color: Colors.blue,
-      height: 60,
+      color: Colors.white54,
+      height: 70,
       width: 2,
     );
   }
