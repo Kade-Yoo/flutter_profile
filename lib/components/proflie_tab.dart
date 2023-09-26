@@ -24,26 +24,34 @@ class _ProfileTabState extends State<ProfileTab> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Column(children: [
       _buildTabBar(),
-      _buildTabBarView(),
+      Expanded(child: _buildTabBarView()),
     ]);
   }
 
   Widget _buildTabBar() {
     return TabBar(
         tabs: const [
-          Tab(icon: Icon(Icons.directions_car)),
-          Tab(icon: Icon(Icons.directions_transit))
+          Tab(icon: Icon(Icons.browse_gallery_outlined)),
+          Tab(icon: Icon(Icons.view_timeline_outlined))
         ],
         controller: _tabController);
   }
 
   Widget _buildTabBarView() {
     return TabBarView(
-        controller: _tabController,
-        children: [
-          Container(color: Colors.green),
-          Container(color: Colors.red)
-        ],
+      controller: _tabController,
+      children: [
+        GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ), itemBuilder: (context, index) {
+          return Image.network("https://picsum.photos/id/${index + 1}/200/200", scale: 0.1,);
+        }),
+        ListView.builder(itemBuilder: (context, index) {
+          return Image.network("https://picsum.photos/id/${index * 2}/200/200", scale: 0.1,);
+        }),
+      ],
     );
   }
 }

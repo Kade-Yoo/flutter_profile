@@ -6,7 +6,7 @@ class ProfileButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildFllowButton(),
           _buildMessageButton()

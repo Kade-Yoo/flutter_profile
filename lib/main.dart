@@ -30,16 +30,22 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       endDrawer: const ProfileDrawer(),
       appBar: _buildProfileAppBar(),
-      body: const Column(
-        children: [
-          SizedBox(height: 20),
-          ProfileHeader(),
-          SizedBox(height: 20),
-          ProfileCountInfo(),
-          SizedBox(height: 20),
-          ProfileButtons(),
-          ProfileTab(),
-        ],
+      body: NestedScrollView(   // 전체 페이지 스크롤됨
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverList(
+              delegate: SliverChildListDelegate([
+                SizedBox(height: 20),
+                ProfileHeader(),
+                SizedBox(height: 20),
+                ProfileCountInfo(),
+                SizedBox(height: 20),
+                ProfileButtons()
+              ]),
+            ),
+          ];
+        },
+        body: ProfileTab(),
       ),
     );
   }
@@ -48,6 +54,16 @@ class ProfilePage extends StatelessWidget {
     return AppBar(
       leading: const Icon(Icons.arrow_back_ios),
       title: const Text("Profile"),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.shopping_cart),
+          tooltip: 'Open shopping cart',
+          onPressed: () {
+            // handle the press
+            print("장바구니 입니다.");
+          },
+        ),
+      ],
       centerTitle: true,
     );
   }
